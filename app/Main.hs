@@ -1,0 +1,8 @@
+{-# LANGUAGE GHC2024 #-}
+{-# LANGUAGE OverloadedStrings #-}
+module Main (main) where
+
+import Lib
+
+main :: IO ()
+main = someFunc

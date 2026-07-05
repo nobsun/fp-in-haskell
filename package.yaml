@@ -1,0 +1,62 @@
+name:                fp-in-haskell
+version:             0.1.0.0
+synopsis:            Functional programming exercises
+category:            Educations
+github:              nobsun/fp-in-haskell
+license:             BSD3
+author:              Nobuo Yamashita
+maintainer:          nobsun@gmail.com
+copyright:           © 2026, Nobuo Yamashita, all rights reserved.
+
+extra-source-files:
+- README.md
+- CHANGELOG.md
+
+description:         Please see the README on GitHub at <https://github.com/nobsun/hoge#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- bytestring
+- utf8-string
+- unicode-show
+- hspec
+- main-tester
+- doctest
+- process
+- array
+- containers
+- free
+- recursion-schemes
+
+language: GHC2024
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wmissing-export-lists
+- -Wmissing-home-modules
+- -Wpartial-fields
+- -Wredundant-constraints
+
+library:
+  source-dirs: src
+
+executables:
+  mkmods:
+    main:               Main.hs
+    source-dirs:        app/mkmods
+    ghc-options:
+    - -rtsopts
+    dependencies:
+    - fp-in-haskell
+
+tests:
+  fp-in-haskell-doctest:
+    main:               doctests.hs
+    source-dirs:        test
+    dependencies:
+    - fp-in-haskell
+    - doctest

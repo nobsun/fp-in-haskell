@@ -1,0 +1,52 @@
+name:                fp-in-haskell
+version:             0.1.0.0
+github:              "nobsun/fp-in-haskell"
+license:             BSD-3-Clause
+author:              "Nobuo Yamashita"
+maintainer:          "nobsun@gmail.com"
+copyright:           "© 2026, Nobuo Yamashita, all right reserved"
+
+extra-source-files:
+- README.md
+- CHANGELOG.md
+
+description:         Please see the README on GitHub at <https://github.com/nobsun/fp-in-haskell#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+ghc-options:
+- -Wall
+- -Wcompat
+- -Widentities
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wmissing-export-lists
+- -Wmissing-home-modules
+- -Wpartial-fields
+- -Wredundant-constraints
+
+library:
+  source-dirs: src
+
+executables:
+  fp-in-haskell-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - fp-in-haskell
+
+tests:
+  fp-in-haskell-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - fp-in-haskell

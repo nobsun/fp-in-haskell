@@ -1,0 +1,13 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "fp-in-haskell:lib"
+
+    - path: "./app/mkmods/Main.hs"
+      component: "fp-in-haskell:exe:mkmods"
+
+    - path: "./app/mkmods/Paths_fp_in_haskell.hs"
+      component: "fp-in-haskell:exe:mkmods"
+
+    - path: "./test"
+      component: "fp-in-haskell:test:fp-in-haskell-doctest"
