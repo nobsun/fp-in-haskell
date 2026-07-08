@@ -5,11 +5,11 @@
 module Answer.DataStructures.Ex0324
     (
     ) where
-import Data.List
 --
 -- | _hasSubsequence
 -- `flip isSubsequenceOf`と同じ。`isSubsequenceOf`は、`Data.List`モジュールにある。
 --
+-- >>> import Data.List
 -- >>> _hasSubsequence "The Glorious Haskell Compiler" "GHC"
 -- True
 -- >>> _hasSubsequence [10,9 .. 0] [1 .. 10]
