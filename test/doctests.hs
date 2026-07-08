@@ -11,4 +11,5 @@ main = doctest
      $ concat
      [ [ printf "GettingStarted/Ex02%02d.hs" i | i <- [1 .. 5 :: Int] ]
      , [ printf "DataStructures/Ex03%02d.hs" i | i <- [1 .. 28 :: Int] ]
+     , [ printf "HandlingErrors/Ex04%02d.hs" i | i <- [1 .. 7 :: Int] ]
      ]

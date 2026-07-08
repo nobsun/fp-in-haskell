@@ -1,32 +1,60 @@
 -- # Answer.HandlingErrors.Ex0402
--- ## 練習問題
--- S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator、それぞれのコンビネータの型シグネチャを確認せよ。
+-- ## 練習問題 4.2
+-- 数値リストの分散を求める関数
+-- `variant :: [Double] -> Maybe Double`を`flatMap`を用いて実装せよ。
+-- 平均値を求める関数を`mean`は以下のとおりとする。
+-- 
 -- ```
--- S f g x = f x (g x)
--- K x y = x
--- I x = x
--- B f g x = f (g x)
--- C f x y = f y x
+-- mean :: [Double] -> Maybe Double
+-- mean xs = if null xs 
+--     then Nothing
+--     else sum xs / fromIntegral (length xs)
 -- ```
 --
 {-# LANGUAGE GHC2024 #-}
 module Answer.HandlingErrors.Ex0402
     (
     ) where
--- | S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator
+-- 
+-- | _variant 分散
+-- 
 --
+-- >>> _variant []
+-- Nothing
+-- >>> _variant [4,2,3,3,6,3,4,3,3,5]
+-- Just 1.2399999999999998
 --
-_S :: (a -> b -> c) -> (a -> b) -> a -> c
-_S = (<*>)
+-- >>> _variant' []
+-- NaN
+-- >>> _variant' [4,2,3,3,6,3,4,3,3,5]
+-- 1.2399999999999998
 
-_K :: a -> b -> a
-_K = const
+_variant :: [Double] -> Maybe Double
+_variant xs = _mean . flip map xs . phi =<< _mean xs
+    where
+        phi m x = (x - m) ^ (2 :: Int)
 
-_I :: a -> a
-_I = id
-
-_B :: (b -> c) -> (a -> b) -> a -> c
-_B = (.)
-
-_C :: (a -> b -> c) -> b -> a -> c
-_C = flip
+_mean :: [Double] -> Maybe Double
+_mean xs = if null xs
+    then Nothing
+    else Just $ sum xs / fromIntegral (length xs)
+--
+-- | _variant' :: [Double] -> Double
+-- HaskellにおけるDoubleは、IEEE 754 浮動小数点数に準拠しており
+-- 0 / 0 ==> NaN であり、このとき例外はあがらない。
+-- （NaNかどうかの判定は、`isNaN :: Double -> Bool`を使う）
+--
+-- >>> _variant' []
+-- NaN
+-- >>> _variant' [4,2,3,3,6,3,4,3,3,5]
+-- 1.2399999999999998
+--
+_variant' :: [Double] -> Double
+_variant' xs = _mean' (map (square . deviation) xs)
+    where
+        deviation = subtract mu
+        mu        = _mean' xs
+        square x  = x * x
+    
+_mean' :: [Double] -> Double
+_mean' = (/) . sum <*> fromIntegral . length
