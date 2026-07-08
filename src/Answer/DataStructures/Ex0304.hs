@@ -1,27 +1,28 @@
 -- # Answer.DataStructures.Ex0304
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE LexicalNegation #-}
+-- ## 練習問題 3.4
+-- 指定したリスト先頭の先頭から$n$個要素を取り除いたリストを構成する関数`drop :: Int -> [a] -> [a]`を実装せよ。
+--
+{-# LANGUAGE GHC2024 #-}
 {-# LANGUAGE NPlusKPatterns #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
 module Answer.DataStructures.Ex0304
-    ( myDrop
+    (
     ) where
 
-{- $setup
->>> :set -XOverloadedStrings
--}
-{- | myDrop
-dropは標準プレリュード関数
->>> myDrop 3 [1,2,3,4,5] :: [Int]
-[4,5]
->>> myDrop 2 "abcde" :: [Char]
-"cde"
--}
-myDrop :: Int -> [a] -> [a]
-myDrop = \ case
-    0   -> id
-    n+1 -> \ case
-        []   -> []
-        _:xs -> myDrop n xs
-    _   -> id
+-- | _drop
+-- dropは標準プレリュード関数である。
+-- 衝突を回避するために`_drop`とする。
+
+-- >>> _drop 3 [1,2,3,4,5] :: [Int]
+-- [4,5]
+-- >>> _drop 2 "abcde" :: [Char]
+-- "cde"
+-- >>> _drop 100 "hoge" :: [Char]
+-- ""
+--
+_drop :: Int -> [a] -> [a]
+_drop n xs = case n of
+    0    -> xs
+    n'+1 -> case xs of
+        []    -> []
+        _:xs' -> _drop n' xs'
+    _    -> xs

@@ -1,27 +1,23 @@
 -- # Answer.DataStructures.Ex0314
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE LexicalNegation #-}
-{-# LANGUAGE NPlusKPatterns #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+-- ## 練習問題 3.14
+-- `(++) :: [a] -> [a] -> [a]`を`foldr`あるいは`foldl'`のいずれかで実装せよ。
+{-# LANGUAGE GHC2024 #-}
 module Answer.DataStructures.Ex0314
-    ( appendr
-    , appendl
+    ( 
     ) where
 
-{- $setup
->>> :set -XOverloadedStrings
--}
-{- | appendr
->>> appendr "abc" "1234"
-"abc1234"
--}
-appendr :: [a] -> [a] -> [a]
-appendr xs ys = foldr (:) ys xs
-{- | appendl
->>> appendl "abc" "1234"
-"abc1234"
--}
-appendl :: [a] -> [a] -> [a]
-appendl xs ys = foldl psi id xs ys where
-    psi f x = f . (x :)
+-- | `(++?)`
+-- `(++)`は標準プレリュード関数である。
+-- 衝突を回避するために、ここでは
+-- 直接再帰では以下のように定義する
+-- ```haskell
+-- (++?) :: [a] -> [a] -> [a]
+-- []   ++? ys = ys
+-- x:xs ++? ys = x : (xs ++? ys)
+-- ```
+-- したがって、`foldr`で定義する。
+--
+-- >>> (++?) :: [a] -> [a] -> [a]; xs ++? ys = foldr (:) ys xs
+-- >>> [1 .. 100] ++? [101 .. 201] == [1 .. 100] ++ [101 .. 201]
+-- True
+--

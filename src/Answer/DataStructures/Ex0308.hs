@@ -1,20 +1,27 @@
 -- # Answer.DataStructures.Ex0308
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE LexicalNegation #-}
-{-# LANGUAGE NPlusKPatterns #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+-- ##  練習問題 3.8
+-- `foldr (:) []`をリストに適用するとどうなるか
+--
+{-# LANGUAGE GHC2024 #-}
 module Answer.DataStructures.Ex0308
     ( 
     ) where
-{- $setup
->>> :set -XOverloadedStrings
--}
-{- 
-Haskell では foldr は Foldable 型クラスのメソッド
->>> xs = "foldr (:) [] ≡ id :: [a] -> [a]" :: String
->>> xs == foldr (:) [] xs
-True
--}
-
-
+--
+-- `foldr (:) []`
+--  = { `id`は`.`の単位元 } 
+-- `foldr ((:) . id) []
+--  = { `map`の定義（`map f = foldr ((:) . f）[]`}
+-- `map id`
+--  = { リストの関手則 }
+-- `id`
+--
+-- >>> xs = "foldr (:) [] ≡ id :: [a] -> [a]" :: String
+-- >>> xs
+-- "foldr (:) [] \8801 id :: [a] -> [a]"
+-- >>> xs == foldr (:) [] xs
+-- True
+-- >>> ys = [1 .. 5]
+-- >>> ys
+-- [1,2,3,4,5]
+-- >>> ys == foldr (:) [] ys
+-- True

@@ -1,21 +1,15 @@
 -- # Answer.DataStructures.Ex0317
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE LexicalNegation #-}
-{-# LANGUAGE NPlusKPatterns #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+-- `Double`型の要素を含むリストから文字列のリストへの関数`[Double] -> [String]`を書け。
+{-# LANGUAGE GHC2024 #-}
 module Answer.DataStructures.Ex0317
-    ( doublesToString
+    (
     ) where
+-- |
+-- これも名前をつけるほどでもなし、`Show`型クラスの具体例の型ならなんでもよい。
+-- >>> map show [3,1,4,1,5 :: Double]
+-- ["3.0","1.0","4.0","1.0","5.0"]
+-- >>> map show [True,True,False,True,True]
+-- ["True","True","False","True","True"]
+--
 
-{- $setup
->>> :set -XOverloadedStrings
--}
-{- | doublesToString
-？ユースケースがわからない
->>> doublesToString [3,1,4]
-"3.01.04.0"
--}
-doublesToString :: [Double] -> String
-doublesToString = concatMap show
 

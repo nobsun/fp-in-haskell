@@ -1,27 +1,17 @@
 -- # Answer.DataStructures.Ex0320
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE LexicalNegation #-}
-{-# LANGUAGE NPlusKPatterns #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+-- ## 練習問題 3.20
+-- `concatMap :: (a -> [b]) -> [a] -> [b]`を書け。
+--
+{-# LANGUAGE GHC2024 #-}
 module Answer.DataStructures.Ex0320
     (
     ) where
-
-{- $setup
->>> :set -XOverloadedStrings
--}
-{- | _flatMap
-標準プレリュード関数のconcatMapと同じ
->>> _flatMap _conv [3,1,4,1,5]
-"Fizz141Buzz"
--}
-_flatMap :: (a -> [b]) -> [a] -> [b]
-_flatMap f = foldr ((++) . f) []
-
-_conv :: Int -> [Char]
-_conv = \ case
-    n | n `mod` 5 == 0, n `mod` 3 == 0 -> "FizzBuzz"
-      | n `mod` 5 == 0                 -> "Buzz"
-      | n `mod` 3 == 0                 -> "Fizz"
-      | otherwise                      -> show n
+--
+-- | _concatMap
+-- `concatMap`は標準プレリュード関数
+--
+-- >>> _concatMap (replicate 2) [1,2,3]
+-- [1,1,2,2,3,3]
+--
+_concatMap :: (a -> [b]) -> [a] -> [b]
+_concatMap f = foldr ((++) . f) []

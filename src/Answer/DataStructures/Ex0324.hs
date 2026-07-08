@@ -1,28 +1,25 @@
 -- # Answer.DataStructures.Ex0324
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE LexicalNegation #-}
-{-# LANGUAGE NPlusKPatterns #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+-- ## 練習問題 3.24
+-- 指定したリストが、指定したもうひとつのリストを部分列として含むかを判定する関数`hasSubsequence :: Eq a => [a] -> [a] -> Bool`を実装せよ。
+{-# LANGUAGE GHC2024 #-}
 module Answer.DataStructures.Ex0324
     (
     ) where
-
-{- $setup
->>> :set -XOverloadedStrings
--}
-{- | _hasSubsequence
-flip isSubsequenceOf と同じ。isSubsequenceOfは、baseパッケージのData.Listモジュールにある
->>> _hasSubsequence "The Glorious Haskell Compiler" "GHC"
-True
->>> _hasSubsequence [10,9 .. 0] [1 .. 10]
-False
--}
+import Data.List
+--
+-- | _hasSubsequence
+-- `flip isSubsequenceOf`と同じ。`isSubsequenceOf`は、`Data.List`モジュールにある。
+--
+-- >>> _hasSubsequence "The Glorious Haskell Compiler" "GHC"
+-- True
+-- >>> _hasSubsequence [10,9 .. 0] [1 .. 10]
+-- False
+-- >>> _hasSubsequence ['a'..'z'] ('a':['d'..'q']) && flip isSubsequenceOf ['a'..'z'] ('a':['d'..'q'])
+-- True
+--
 _hasSubsequence :: Eq a => [a] -> [a] -> Bool
-_hasSubsequence sup sub = case sub of
-    []   -> True
-    q:qs -> case sup of
-        []   -> False
-        p:ps | p == q    -> _hasSubsequence ps qs
-             | otherwise -> _hasSubsequence ps sub
-   
+_hasSubsequence _ [] = True
+_hasSubsequence [] _ = False
+_hasSubsequence (x:xs) sub@(y:ys)
+    | x == y    = _hasSubsequence xs ys
+    | otherwise = _hasSubsequence xs sub

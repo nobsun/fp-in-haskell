@@ -1,22 +1,20 @@
 -- # Answer.DataStructures.Ex0310
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE LexicalNegation #-}
-{-# LANGUAGE NPlusKPatterns #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+-- ##  練習問題 3.10
+-- `foldl :: (b -> a -> b) -> b -> [a] -> b`を実装せよ。
+--
+{-# LANGUAGE GHC2024 #-}
 module Answer.DataStructures.Ex0310
-    ( myFoldl
+    (
     ) where
 
-{- $setup
->>> :set -XOverloadedStrings
--}
-{- | myFoldl
-foldlは標準プレリュード関数
->>> myFoldl ((+) . (10 *)) 0 [3,1,4,1,5,9,2,6,5]
-314159265
--}
-myFoldl :: (a -> b -> a) -> a -> [b] -> a
-myFoldl phi z = \ case
-    []   -> z
-    x:xs -> myFoldl phi (phi z x) xs
+-- | _foldl
+-- `foldl`は標準プレリュード関数である（ただし、実用上は`fold'`を使う）。
+-- 衝突を回避するために`_foldl`とする。
+-- >>> _foldl ((+) . (10 *)) 0 [3,1,4,1,5,9,2,6,5]
+-- 314159265
+-- 
+_foldl :: (a -> b -> a) -> a -> [b] -> a
+_foldl !acc z xs = case xs of
+    []    -> z
+    x:xs' -> _foldl acc (acc z x) xs'
+

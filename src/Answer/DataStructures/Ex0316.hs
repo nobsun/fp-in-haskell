@@ -1,20 +1,19 @@
 -- # Answer.DataStructures.Ex0316
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE LexicalNegation #-}
-{-# LANGUAGE NPlusKPatterns #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+-- ## 練習問題 3.16
+-- 整数のリストの各要素に１を加えた要素からなるリストを構成する関数を書け。
+{-# LANGUAGE GHC2024 #-}
 module Answer.DataStructures.Ex0316
-    ( incs
+    (
     ) where
-
-{- $setup
->>> :set -XOverloadedStrings
--}
-{- | incs
-整数リストの各要素を1増やす
->>> incs [3,1,4,1,5]
-[4,2,5,2,6]
--}
-incs :: [Int] -> [Int]
-incs = map succ
+-- | _incs
+-- わざわざ名前をつけるほどでもないし、数値であれば整数でなくてもよい。
+--
+-- >>> (1 +) <$> [3,1,4,1,5]
+-- [4,2,5,2,6]
+-- >>> map (1 +) [3,2,4,1,5]
+-- [4,3,5,2,6]
+-- >>> _incs [3,1,4,1,5]
+-- [4,2,5,2,6]
+--
+_incs :: Num a => [a] -> [a]
+_incs = map (1 +)

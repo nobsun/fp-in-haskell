@@ -1,27 +1,28 @@
 -- # Answer.DataStructures.Ex0311
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE LexicalNegation #-}
-{-# LANGUAGE NPlusKPatterns #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+-- ##  練習問題 3.11
+-- `sum`、`product`、`length`を`foldl`を用いて実装せよ。
+--
+{-# LANGUAGE GHC2024 #-}
 module Answer.DataStructures.Ex0311
-    ( mySum
-    , myProduct
+    (
     ) where
+-- | 
+-- `sum`、`product`、`length`は標準プレリュード関数である。
+-- 衝突回避のために、それぞれ、`_sum`、`_product`、`_length`とする
 
-{- $setup
->>> :set -XOverloadedStrings
--}
-{- | 
-mySum および product は標準プレリュード関数
->>> sum [3,1,4,1,5,9,2,6,5,3]
-39
->>> myProduct [3,1,4,1,5,9,2,6,5,3]
-97200
--}
-mySum :: Num a =>[a] -> a
-mySum = foldl' (+) 0
+-- >>> sample = [3,1,4,1,5,9,2,6,5,3] :: [Int]
+-- >>> _sum sample
+-- 39
+-- >>> _sum sample == sum sample
+-- True
+-- >>> _product sample
+-- 97200
+-- >>> _product sample == product sample
+-- True
+--
+_sum :: Num a => [a] -> a
+_sum = foldl' (+) 0
 
-myProduct :: Num a => [a] -> a
-myProduct = foldl' (*) 1
+_product :: Num a => [a] -> a
+_product = foldl' (*) 1
 

@@ -1,20 +1,18 @@
 -- # Answer.DataStructures.Ex0315
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE LexicalNegation #-}
-{-# LANGUAGE NPlusKPatterns #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+-- ## 練習問題 3.15
+-- `concat :: [[a]] -> [a]`を実装せよ。
+-- 計算量は全体のリストの長さ$n$に対して$O(n)$となるようにせよ。
+--
+{-# LANGUAGE GHC2024 #-}
 module Answer.DataStructures.Ex0315
-    ( myConcat
+    (
     ) where
 
-{- $setup
->>> :set -XOverloadedStrings
--}
-{- | myConcat
-concatは標準プレリュード関数
->>> myConcat ["ab","","cde","f","ghij"]
-"abcdefghij"
--}
-myConcat :: [[a]] -> [a]
-myConcat = foldr (++) []
+-- | _concat
+-- concatは標準プレリュード関数である。
+--
+-- >>> _concat ["ab","","cde","f","ghij"]
+-- "abcdefghij"
+--
+_concat :: [[a]] -> [a]
+_concat = foldr (++) []

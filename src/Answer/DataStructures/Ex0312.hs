@@ -1,22 +1,23 @@
 -- # Answer.DataStructures.Ex0312
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE LexicalNegation #-}
-{-# LANGUAGE NPlusKPatterns #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+-- ##  練習問題 3.12
+-- 逆順のリストを構成する関数`reverse`を畳み込みを使って書け。
+--
+{-# LANGUAGE GHC2024 #-}
 module Answer.DataStructures.Ex0312
-    ( myReverse
+    (
     ) where
+--
+-- | _reverse
+-- `reverse`は標準プレリュード関数である。
+-- 衝突回避のため`_reverse`とする。
 
-{- $setup
->>> :set -XOverloadedStrings
--}
-{- | myReverse
-reverse は標準プレリュード関数
->>> myReverse "akasaka"
-"akasaka"
->>> myReverse [3,1,4,1,5,9,2,6,5]
-[5,6,2,9,5,1,4,1,3]
--}
-myReverse :: [a] -> [a]
-myReverse = foldl' (flip (:)) []
+-- >>> _reverse "akasaka"
+-- "akasaka" 
+-- >>> _reverse [3,1,4,1,5,9,2,6,5]
+-- [5,6,2,9,5,1,4,1,3]
+-- 
+_reverse :: [a] -> [a]
+_reverse = foldl' (flip (:)) []
+--
+-- >>> sm = foldr (+) 0
+-- >>> sm [1..1000000]
