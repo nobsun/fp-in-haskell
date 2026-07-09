@@ -1,32 +1,32 @@
 -- # Answer.HandlingErrors.Ex0405
--- ## 練習問題
--- S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator、それぞれのコンビネータの型シグネチャを確認せよ。
--- ```
--- S f g x = f x (g x)
--- K x y = x
--- I x = x
--- B f g x = f (g x)
--- C f x y = f y x
--- ```
---
+-- ## 練習問題 4.5
+-- `traverse :: (a -> Maybe b) -> [a] -> Maybe [b]`を実装せよ。
+-- 
 {-# LANGUAGE GHC2024 #-}
 module Answer.HandlingErrors.Ex0405
     (
     ) where
--- | S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator
+-- 
+-- | _traverse
+-- `traverse`は`Traversable`型構成子クラスのメソッドである。
+-- `t`を`Traversable`の具体例とすると、
+-- `traverse :: Applicative f => (a -> f b) -> t a -> f (t b)`である。
+-- リストは`Traversable`の具体例、`Maybe`は`Applicative`の具体例なので、
+-- ```
+-- _traverse :: (a -> Maybe b) -> [a] -> Maybe [a]
+-- _traverse = traverse
+-- ```
+-- であるが、ここでは、題意に沿って実装する。
 --
+-- >>> _traverse Just [1,2,3,4]
+-- Just [1,2,3,4]
+-- >>> _traverse (const Nothing) [1,2,3,4]
+-- Nothing
 --
-_S :: (a -> b -> c) -> (a -> b) -> a -> c
-_S = (<*>)
+_traverse :: (a -> Maybe b) -> [a] -> Maybe [b]
+_traverse f xs = foldr phi (Just []) xs
+    where
+        phi x my = case f x of
+            Nothing -> Nothing
+            Just y  -> (y:) <$> my
 
-_K :: a -> b -> a
-_K = const
-
-_I :: a -> a
-_I = id
-
-_B :: (b -> c) -> (a -> b) -> a -> c
-_B = (.)
-
-_C :: (a -> b -> c) -> b -> a -> c
-_C = flip
