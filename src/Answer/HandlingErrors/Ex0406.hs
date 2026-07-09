@@ -1,32 +1,43 @@
 -- # Answer.HandlingErrors.Ex0406
--- ## 練習問題
--- S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator、それぞれのコンビネータの型シグネチャを確認せよ。
+-- ## 練習問題 4.6
+-- `Either e`上の以下の関数を定義せよ。
 -- ```
--- S f g x = f x (g x)
--- K x y = x
--- I x = x
--- B f g x = f (g x)
--- C f x y = f y x
+-- map :: (a -> b) -> Either e a -> Either e b
+-- flatMap :: (a -> Either e b) -> Either e a -> Either e b
+-- orElse  :: Either e a -> Either e a -> Either e a
+-- map2 :: (a -> b -> c) -> Either e a -> Either e b -> Either e c
 -- ```
 --
 {-# LANGUAGE GHC2024 #-}
 module Answer.HandlingErrors.Ex0406
     (
     ) where
--- | S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator
 --
+-- | _map、_flatMap、_orElse、_map2
+-- `Either a`は、`Functor`、`Applicative`、`Monad`の３つの型構成子クラスの具体例であり、
+-- `either :: (a -> c) -> (b -> c) -> Either a b -> c`という`Either a b`上のケース分析を一般化した関数が定義済みである。
+-- それゆえ、
+-- ```
+-- map          = (<$>)
+-- map2 f ea eb = f <$> ea <*> eb
+-- flatMap      = (=<<)
+-- orElse ed    = either (const ed) Right
+-- ```
+-- ここでは、`either`を実装してそれを使うことにする。
 --
-_S :: (a -> b -> c) -> (a -> b) -> a -> c
-_S = (<*>)
+_either :: (a -> c) -> (b -> c) -> Either a b -> c
+_either l r eab = case eab of
+    Left x  -> l x
+    Right y -> r y
 
-_K :: a -> b -> a
-_K = const
+_map :: (a -> b) -> Either e a -> Either e b
+_map f = _either (Left . id) (Right . f)
 
-_I :: a -> a
-_I = id
+_flatMap :: (a -> Either e b) -> Either e a -> Either e b
+_flatMap f = _either (Left . id) f
 
-_B :: (b -> c) -> (a -> b) -> a -> c
-_B = (.)
+_orElse :: Either e a -> Either e a -> Either e a
+_orElse d = _either (const d) (Right . id)
 
-_C :: (a -> b -> c) -> b -> a -> c
-_C = flip
+_map2 :: (a -> b -> c) -> Either e a -> Either e b -> Either e c
+_map2 f ea = _either (const . Left) _map (_map f ea)
