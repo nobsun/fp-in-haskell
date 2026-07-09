@@ -1,32 +1,34 @@
 -- # Answer.HandlingErrors.Ex0404
--- ## 練習問題
--- S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator、それぞれのコンビネータの型シグネチャを確認せよ。
--- ```
--- S f g x = f x (g x)
--- K x y = x
--- I x = x
--- B f g x = f (g x)
--- C f x y = f y x
--- ```
+-- ## 練習問題 4.4
+-- `Maybe`のリストをリストの`Maybe`に変換する関数
+-- `sequnce :: [Maybe a] -> Maybe [a]`
+-- を定義せよ。
 --
 {-# LANGUAGE GHC2024 #-}
 module Answer.HandlingErrors.Ex0404
     (
     ) where
--- | S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator
 --
+-- | _sequence
+-- `sequence`および`sequenceA`は`Traversable`型構成子クラスのメソッドである。
+-- ここでは、題意に沿って実装する。
 --
-_S :: (a -> b -> c) -> (a -> b) -> a -> c
-_S = (<*>)
-
-_K :: a -> b -> a
-_K = const
-
-_I :: a -> a
-_I = id
-
-_B :: (b -> c) -> (a -> b) -> a -> c
-_B = (.)
-
-_C :: (a -> b -> c) -> b -> a -> c
-_C = flip
+-- >>> sample1 = [Just 3, Just 1, Nothing, Just 1, Just 5] :: [Maybe Int]
+-- >>> sample2 = [Just 3, Just 1, Just 1, Just 5] :: [Maybe Int]
+-- >>> _sequence sample1
+-- Nothing
+-- >>> _sequence sample2
+-- Just [3,1,1,5]
+-- >>> _sequence sample1 == sequenceA sample1
+-- True
+-- >>> _sequence sample1 == sequence sample1
+-- True
+-- >>> _sequence sample2 == sequenceA sample2
+-- True
+-- >>> _sequence sample2 == sequence sample2
+-- True
+_sequence :: [Maybe a] -> Maybe [a]
+_sequence mxs = case mxs of
+    []         -> Just []
+    Nothing:_  -> Nothing
+    Just x:mrs -> (x:) <$> _sequence mrs
