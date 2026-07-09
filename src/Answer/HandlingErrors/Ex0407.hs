@@ -1,32 +1,23 @@
 -- # Answer.HandlingErrors.Ex0407
--- ## 練習問題
--- S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator、それぞれのコンビネータの型シグネチャを確認せよ。
--- ```
--- S f g x = f x (g x)
--- K x y = x
--- I x = x
--- B f g x = f (g x)
--- C f x y = f y x
--- ```
---
+-- ## 練習問題 4.7
+-- `Either e`に対する`traverse :: (a -> [b]) -> Either e a -> [Either e b]`および
+-- `sequence :: Either e [a] -> [Either e a]
+
 {-# LANGUAGE GHC2024 #-}
 module Answer.HandlingErrors.Ex0407
     (
     ) where
--- | S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator
 --
---
-_S :: (a -> b -> c) -> (a -> b) -> a -> c
-_S = (<*>)
+-- | _traverse、_sequence
+-- `Either e`は`Traversable`型構成子クラスの具体例なので、
+-- `traverse :: Applicative f => (a -> f b) -> Either e a -> f (Either e b)`が定義済である。
+-- 
+-- ここでは、題意にそって、_traverse、_sequenceを定義する。
+-- 
+_traverse :: (a -> [b]) -> Either e a -> [Either e b]
+_traverse f ea = case ea of
+    Left e  -> [Left e]
+    Right x -> Right <$> f x
 
-_K :: a -> b -> a
-_K = const
-
-_I :: a -> a
-_I = id
-
-_B :: (b -> c) -> (a -> b) -> a -> c
-_B = (.)
-
-_C :: (a -> b -> c) -> b -> a -> c
-_C = flip
+_sequence :: Either e [a] -> [Either e a]
+_sequence = _traverse id
