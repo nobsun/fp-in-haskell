@@ -1,32 +1,23 @@
 -- # Answer.Laziness.Ex0504
--- ## 練習問題
--- S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator、それぞれのコンビネータの型シグネチャを確認せよ。
--- ```
--- S f g x = f x (g x)
--- K x y = x
--- I x = x
--- B f g x = f (g x)
--- C f x y = f y x
--- ```
+-- ## 練習問題 5.4
+-- 指定したリスト内の要素がすべて指定した述語を満すかどうかを判定する関数
+-- `all :: (a -> bool) -> [a] -> [a]`
+-- 実装せよ。不適合要素をがみつかったら後の要素の判定はスキップしてショートカットせよ。
 --
 {-# LANGUAGE GHC2024 #-}
 module Answer.Laziness.Ex0504
     (
     ) where
--- | S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator
 --
+-- | `all`は標準プレリュード関数
+-- `foldr`をつかって`(&&)`で畳み込む。`(False &&)`は非正格関数なのでショートカットできる。
 --
-_S :: (a -> b -> c) -> (a -> b) -> a -> c
-_S = (<*>)
-
-_K :: a -> b -> a
-_K = const
-
-_I :: a -> a
-_I = id
-
-_B :: (b -> c) -> (a -> b) -> a -> c
-_B = (.)
-
-_C :: (a -> b -> c) -> b -> a -> c
-_C = flip
+-- >>> _all odd [1 .. 5]
+-- False
+-- >>> _all even (map (2 *) [1 .. 5])
+-- True
+-- >>> _all (10 >) [0 ..]
+-- False
+--
+_all :: (a -> Bool) -> [a] -> Bool
+_all p = foldr ((&&) . p) True
