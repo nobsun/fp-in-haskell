@@ -1,32 +1,21 @@
 -- # Answer.Laziness.Ex0515
--- ## 練習問題
--- S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator、それぞれのコンビネータの型シグネチャを確認せよ。
--- ```
--- S f g x = f x (g x)
--- K x y = x
--- I x = x
--- B f g x = f (g x)
--- C f x y = f y x
--- ```
---
+-- ## 練習問題 5.15
+-- `unfoldr`を用いて`tails :: [a] -> [[a]]`を実装せよ
+-- 
 {-# LANGUAGE GHC2024 #-}
 module Answer.Laziness.Ex0515
     (
     ) where
--- | S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator
---
---
-_S :: (a -> b -> c) -> (a -> b) -> a -> c
-_S = (<*>)
+import Data.List ( unfoldr )
+-- |
+-- `tails`は基本モジュール`Data.List`で定義されている。
+-- >>> _tails "tails"
+-- ["tails","ails","ils","ls","s",""]
+-- >>> _tails ""
+-- [""]
+_tails :: [a] -> [[a]]
+_tails xs = take n (unfoldr psi xs) where
+    n = 1 + length xs
+    psi = \ case
+        ys -> Just (ys, drop 1 ys)
 
-_K :: a -> b -> a
-_K = const
-
-_I :: a -> a
-_I = id
-
-_B :: (b -> c) -> (a -> b) -> a -> c
-_B = (.)
-
-_C :: (a -> b -> c) -> b -> a -> c
-_C = flip
