@@ -2,7 +2,9 @@
 
 FP in Scala演習問題の[Haskell](https://haskell.org)移植版
 
-これは[fp-matsuri/fp-in-scala-exercises/CONTRIBUTING.md](https://github.com/fp-matsuri/fp-in-scala-exercises/blob/main/CONTRIBUTING.md)の方針に沿って構成しているものです。
+このリポジトリでは、筆者の学習のために作られたものを公開しています。
+
+構成は[fp-matsuri/fp-in-scala-exercises/CONTRIBUTING.md](https://github.com/fp-matsuri/fp-in-scala-exercises/blob/main/CONTRIBUTING.md)の方針を参考にしていますが、厳密にはしたがっていません。
 
 ## おことわり
 
@@ -17,23 +19,31 @@ Docker、Dev Container の使用を全く考慮していません。環境構築
 ## 必要なツール
 
 - [GHCup](https://www.haskell.org/ghcup/): ツール群管理ツール
-- [VSCode](https://code.visualstudio.com): エディタ、拡張機能: Haskellをインストールして使います
+    - [GHC](https://www.haskell.org/ghc/): コンパイラ、ランタイム、基本パッケージ
+    - [stack](https://docs.haskellstack.org/en/stable/): パッケージ管理ツール。ここでは、stackを使ってビルド、REPLの起動をおこないます。
+    - [cabal](https://www.haskell.org/cabal/): 直接使うことはありませんが、stackと連携しています。
+    - [HLS](https://github.com/haskell/haskell-language-server): Haskell Language Server。VSCodeのHaskell拡張機能が使います。。
+- [VSCode](https://code.visualstudio.com): エディタ、拡張機能: Haskellをインストールして使います。
 
 ## 使い方
 
 ### REPL
 
-ToDo
-
 解答例を参照する場合（例）
 ```console
 $ stack exec -- ghci src/Answer/DataStructure/Ex0301.hs
 ```
-解答作成する場合（例）
+解答を確認する場合（例）
 ```console
-$ stack exec -- ghci src/Answer/DataStructure/Ex0301.hs
+$ stack exec -- ghci src/Exercise/DataStructure/Ex0301.hs
+```
+
+### テスト
+
+```console
+stack exec -- doctest src/Exercise/DataStructure/Ex0301.hs
 ```
 
 ## プロジェクトの構成
 
-ToDo
+(ToDo)
