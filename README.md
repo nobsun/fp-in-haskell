@@ -6,6 +6,8 @@ FP in Scala演習問題の[Haskell](https://haskell.org)移植版
 
 構成は[fp-matsuri/fp-in-scala-exercises/CONTRIBUTING.md](https://github.com/fp-matsuri/fp-in-scala-exercises/blob/main/CONTRIBUTING.md)の方針を参考にしていますが、厳密にはしたがっていません。
 
+現時点では、２章〜５章です。
+
 ## おことわり
 
 本リポジトリのfp-matsuri/fp-in-scala-exercises/fp-in-haskellで準備されているものとは**別のもの**であり、fp-matsuri**非公認**です。
@@ -45,5 +47,31 @@ stack exec -- doctest src/Exercise/DataStructure/Ex0301.hs
 ```
 
 ## プロジェクトの構成
-
-(ToDo)
+```
+.
+├── CHANGELOG.md
+├── LICENSE
+├── README.md
+├── Setup.hs
+├── app
+│   └── Main.hs
+├── fp-in-haskell.cabal
+├── hie.yaml
+├── package.yaml
+├── package.yaml.orig
+├── src
+│   ├── Answer
+│   │   ├── DataStructures/
+│   │   ├── GettingStarted/
+│   │   ├── HandlingErrors/
+│   │   └── Laziness/
+│   ├── Exercise
+│   │   ├── DataStructures/
+│   │   ├── GettingStarted/
+│   │   ├── HandlingErrors/
+│   │   └── Laziness/
+│   └── Lib.hs
+├── stack.yaml
+├── stack.yaml.lock
+└── test
+    └── doctests.hs
