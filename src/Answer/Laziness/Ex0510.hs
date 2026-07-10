@@ -11,4 +11,4 @@ module Answer.Laziness.Ex0510
 -- [0,1,1,2,3,5,8,13,21,34]
 _fibs,_fibs' :: [Integer]
 _fibs@(_:_fibs') = 0 : 1 : zipWith add _fibs _fibs' where
-    add x !y = x + y
+    add !x !y = x + y
