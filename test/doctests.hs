@@ -7,7 +7,7 @@ import Test.DocTest ( doctest )
 
 main :: IO ()
 main = doctest
-     $ map ("src/Answer/" <>) 
+     $ map ("src/Exercise/" <>) 
      $ concat
      [ [ printf "GettingStarted/Ex02%02d.hs" i | i <- [1 .. 5 :: Int] ]
      , [ printf "DataStructures/Ex03%02d.hs" i | i <- [1 .. 28 :: Int] ]

@@ -1,7 +1,7 @@
--- # Answer.DataStructures.Ex0317
+-- # Exercise.DataStructures.Ex0317
 -- `Double`型の要素を含むリストから文字列のリストへの関数`[Double] -> [String]`を書け。
 {-# LANGUAGE GHC2024 #-}
-module Answer.DataStructures.Ex0317
+module Exercise.DataStructures.Ex0317
     (
     ) where
 -- |

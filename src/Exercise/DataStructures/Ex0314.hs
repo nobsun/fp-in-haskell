@@ -1,8 +1,8 @@
--- # Answer.DataStructures.Ex0314
+-- # Exercise.DataStructures.Ex0314
 -- ## 練習問題 3.14
 -- `(++) :: [a] -> [a] -> [a]`を`foldr`あるいは`foldl'`のいずれかで実装せよ。
 {-# LANGUAGE GHC2024 #-}
-module Answer.DataStructures.Ex0314
+module Exercise.DataStructures.Ex0314
     ( 
     ) where
 -- | _append
@@ -12,7 +12,6 @@ module Answer.DataStructures.Ex0314
 -- append []     ys = ys
 -- append (x:xs) ys = x : append xs ys
 -- ```
--- たたみこみ関数は`(:)`になる。`:`は右オペランドについて非正格であるので`foldr`で実装する。
 --
 _append :: [a] -> [a] -> [a]
-_append xs ys = foldr (:) ys xs
+_append xs ys = undefined

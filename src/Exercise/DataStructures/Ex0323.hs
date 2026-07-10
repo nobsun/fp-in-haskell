@@ -1,9 +1,9 @@
--- # Answer.DataStructures.Ex0323
+-- # Exercise.DataStructures.Ex0323
 -- ## 練習問題 3.23
 -- 前問で書いた関数を一般化せよ。
 --
 {-# LANGUAGE GHC2024 #-}
-module Answer.DataStructures.Ex0323
+module Exercise.DataStructures.Ex0323
     (
     ) where
 --
@@ -15,6 +15,4 @@ module Answer.DataStructures.Ex0323
 _zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
 _zipWith _ []     _      = []
 _zipWith _ _      []     = []
-_zipWith f (x:xs) (y:ys) = z : _zipWith f xs ys
-            where
-                z = f x y
+_zipWith f (x:xs) (y:ys) = undefined
