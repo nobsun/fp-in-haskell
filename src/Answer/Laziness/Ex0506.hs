@@ -1,32 +1,16 @@
 -- # Answer.Laziness.Ex0506
--- ## 練習問題
--- S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator、それぞれのコンビネータの型シグネチャを確認せよ。
--- ```
--- S f g x = f x (g x)
--- K x y = x
--- I x = x
--- B f g x = f (g x)
--- C f x y = f y x
--- ```
+-- ## 練習問題 5.6
+-- `foldr`を用いて
+-- `safeHead :: [a] -> Maybe a`を実装せよ
 --
 {-# LANGUAGE GHC2024 #-}
 module Answer.Laziness.Ex0506
     (
     ) where
--- | S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator
---
---
-_S :: (a -> b -> c) -> (a -> b) -> a -> c
-_S = (<*>)
-
-_K :: a -> b -> a
-_K = const
-
-_I :: a -> a
-_I = id
-
-_B :: (b -> c) -> (a -> b) -> a -> c
-_B = (.)
-
-_C :: (a -> b -> c) -> b -> a -> c
-_C = flip
+-- |
+-- `safeHead`の実装は、基本モジュール`Data.List`にある`uncons :: [a] -> Maybe (a, [a])`を使って
+-- `safeHead = fst <$> uncons`
+-- とするのが簡便。
+-- 
+_safeHead :: [a] -> Maybe a
+_safeHead = foldr (const . Just) Nothing
