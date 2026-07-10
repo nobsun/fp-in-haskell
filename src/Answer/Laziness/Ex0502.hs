@@ -1,32 +1,51 @@
 -- # Answer.Laziness.Ex0502
--- ## 練習問題
--- S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator、それぞれのコンビネータの型シグネチャを確認せよ。
--- ```
--- S f g x = f x (g x)
--- K x y = x
--- I x = x
--- B f g x = f (g x)
--- C f x y = f y x
--- ```
+-- ## 練習問題 5.2
+-- `take :: Int -> [a] -> [a]`
+-- `drop :: Int -> [a] -> [a]`
+-- を書け。
 --
 {-# LANGUAGE GHC2024 #-}
+{-# LANGUAGE LexicalNegation #-}
+{-# LANGUAGE NPlusKPatterns #-}
 module Answer.Laziness.Ex0502
     (
     ) where
--- | S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator
+-- $setup
+-- >>> :set -XLexicalNegation
+-- >>> :set -XNPlusKPatterns
 --
+-- | 
+-- >>> _take 0 [1 ..]
+-- []
+-- >>> _take 3 [1 ..]
+-- [1,2,3]
+-- >>> _take -1 [1 ..]
+-- []
+-- >>> _take 5 (_take 3 [1 ..])
+-- [1,2,3]
+-- >>> _take 3 (_take 0 [1 ..])
+-- []
 --
-_S :: (a -> b -> c) -> (a -> b) -> a -> c
-_S = (<*>)
-
-_K :: a -> b -> a
-_K = const
-
-_I :: a -> a
-_I = id
-
-_B :: (b -> c) -> (a -> b) -> a -> c
-_B = (.)
-
-_C :: (a -> b -> c) -> b -> a -> c
-_C = flip
+_take :: Int -> [a] -> [a]
+_take = \ case
+    n+1 -> \ case
+        x:xs -> x : _take n xs
+        _    -> []
+    _   -> const []
+--
+-- |
+-- >>> _drop 0 [1,2,3]
+-- [1,2,3]
+-- >>> _drop 1 [1,2,3]
+-- [2,3]
+-- >>> _drop -2 [1,2,3]
+-- [1,2,3]
+-- >>> _drop 5 [1,2,3]
+-- []
+--
+_drop :: Int -> [a] -> [a]
+_drop = \ case
+    n+1 -> \ case
+        _:xs -> _drop n xs
+        _    -> []
+    _   -> id
