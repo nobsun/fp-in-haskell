@@ -1,32 +1,13 @@
 -- # Answer.Laziness.Ex0508
--- ## 練習問題
--- S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator、それぞれのコンビネータの型シグネチャを確認せよ。
--- ```
--- S f g x = f x (g x)
--- K x y = x
--- I x = x
--- B f g x = f (g x)
--- C f x y = f y x
--- ```
+-- ## 練習問題 5.8
+-- 与えられた要素を無限にならべる`repeat :: a -> [a]`を再実装せよ。
 --
 {-# LANGUAGE GHC2024 #-}
 module Answer.Laziness.Ex0508
     (
     ) where
--- | S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator
---
---
-_S :: (a -> b -> c) -> (a -> b) -> a -> c
-_S = (<*>)
-
-_K :: a -> b -> a
-_K = const
-
-_I :: a -> a
-_I = id
-
-_B :: (b -> c) -> (a -> b) -> a -> c
-_B = (.)
-
-_C :: (a -> b -> c) -> b -> a -> c
-_C = flip
+-- >>> take 5 (repeat 7)
+-- [7,7,7,7,7]
+_repeat :: a -> [a]
+_repeat x = xs where
+    xs = x:xs
