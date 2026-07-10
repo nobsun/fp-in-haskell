@@ -1,32 +1,22 @@
 -- # Answer.Laziness.Ex0507
--- ## 練習問題
--- S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator、それぞれのコンビネータの型シグネチャを確認せよ。
--- ```
--- S f g x = f x (g x)
--- K x y = x
--- I x = x
--- B f g x = f (g x)
--- C f x y = f y x
--- ```
+-- ## 練習問題 5.7
+-- `map`、`filter`、`(++)`、`concatMap`を`foldr`を用いて再実装せよ。
 --
 {-# LANGUAGE GHC2024 #-}
 module Answer.Laziness.Ex0507
     (
     ) where
--- | S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator
---
---
-_S :: (a -> b -> c) -> (a -> b) -> a -> c
-_S = (<*>)
+_map :: (a -> b) -> ([a] -> [b])
+_map f = foldr ((:) . f) []
 
-_K :: a -> b -> a
-_K = const
+_filter :: (a -> Bool) -> ([a] -> [a])
+_filter p = foldr f [] where
+    f = \ case
+        x | p x       -> id
+          | otherwise -> (x :)
 
-_I :: a -> a
-_I = id
+_append :: [a] -> [a] -> [a]
+_append xs ys = foldr (:) ys xs
 
-_B :: (b -> c) -> (a -> b) -> a -> c
-_B = (.)
-
-_C :: (a -> b -> c) -> b -> a -> c
-_C = flip
+_concatMap :: (a -> [b]) -> ([a] -> [b])
+_concatMap f = foldr ((++) . f) []
