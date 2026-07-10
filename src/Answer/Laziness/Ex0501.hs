@@ -138,7 +138,7 @@ _bs :: [Int]
 _bs = foldr' ((:) . (1 +)) [] [0..6]
 
 _cs :: [Int]
-_cs = foldr' (_cons . (1 +)) [] [0..6]
+_cs = foldr (_cons . (1 +)) [] [0..6]
 
 _ds :: Integral a => [a]
-_ds = foldr ((:) . (1 +)) [] [0..6]
+_ds = foldr (_cons . (1 +)) [] [0..6]
