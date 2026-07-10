@@ -1,6 +1,8 @@
 -- # Answer.Laziness.Ex0502
 -- ## 練習問題 5.2
--- `take :: Int -> [a] -> [a]`
+-- 指定されたリストの先頭から指定された個数分の要素からなるリストを構成する関数
+-- `take :: Int -> [a] -> [a]` 
+-- および、指定されたリストの先頭から指定された個数分以外の要素からなるリストを構成する関数
 -- `drop :: Int -> [a] -> [a]`
 -- を書け。
 --
@@ -14,7 +16,7 @@ module Answer.Laziness.Ex0502
 -- >>> :set -XLexicalNegation
 -- >>> :set -XNPlusKPatterns
 --
--- | 
+-- | `take`、`drop`は標準プレリュード関数
 -- >>> _take 0 [1 ..]
 -- []
 -- >>> _take 3 [1 ..]
