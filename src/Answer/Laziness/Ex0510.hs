@@ -1,32 +1,14 @@
 -- # Answer.Laziness.Ex0510
--- ## 練習問題
--- S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator、それぞれのコンビネータの型シグネチャを確認せよ。
--- ```
--- S f g x = f x (g x)
--- K x y = x
--- I x = x
--- B f g x = f (g x)
--- C f x y = f y x
--- ```
+-- ## 練習問題 5.10
+-- フィボナッチ数列を構成せよ。
 --
 {-# LANGUAGE GHC2024 #-}
 module Answer.Laziness.Ex0510
     (
     ) where
--- | S-combinator、K-combinator、I-conbinator、B-combinator、C-combinator
---
---
-_S :: (a -> b -> c) -> (a -> b) -> a -> c
-_S = (<*>)
-
-_K :: a -> b -> a
-_K = const
-
-_I :: a -> a
-_I = id
-
-_B :: (b -> c) -> (a -> b) -> a -> c
-_B = (.)
-
-_C :: (a -> b -> c) -> b -> a -> c
-_C = flip
+-- | _fibs
+-- >>> take 10 _fibs
+-- [0,1,1,2,3,5,8,13,21,34]
+_fibs,_fibs' :: [Integer]
+_fibs@(_:_fibs') = 0 : 1 : zipWith add _fibs _fibs' where
+    add x !y = x + y
