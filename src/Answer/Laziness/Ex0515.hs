@@ -14,8 +14,6 @@ import Data.List ( unfoldr )
 -- >>> _tails ""
 -- [""]
 _tails :: [a] -> [[a]]
-_tails xs = take n (unfoldr psi xs) where
-    n = 1 + length xs
+_tails xs = take (1 + length xs) (unfoldr psi xs) where
     psi = \ case
         ys -> Just (ys, drop 1 ys)
-
